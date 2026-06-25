@@ -142,6 +142,10 @@
                         <input type="text" id="sys_user" value="SUSAN" class="mt-1 block w-full border rounded p-1.5 text-xs">
                     </div>
                 </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-600">Print Date & Time</label>
+                    <input type="text" id="sys_print_time" value="2083/01/02-10:15:22" class="mt-1 block w-full border rounded p-1.5 text-xs">
+                </div>
             </div>
         </div>
 
@@ -280,6 +284,7 @@
                     <!-- Left Meta Execution Logging Block -->
                     <div class="space-y-0.5 leading-tight">
                         <p>User&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <span id="out_user"></span></p>
+                        <p>Date & Time&nbsp;&nbsp;: <span id="out_print_time"></span></p>
                     </div>
 
                     <!-- Right Totals Block -->
@@ -363,7 +368,7 @@
         function bindFormListeners() {
             const inputs = ['p_hos', 'p_inv', 'p_name', 'p_age', 'p_contact', 'p_address', 
                             'p_ip', 'p_bed', 'p_admn', 'p_dis', 'p_ward', 'p_consultant', 'p_stay',
-                            'sys_bs', 'sys_ad', 'sys_user'];
+                            'sys_bs', 'sys_ad', 'sys_user', 'sys_print_time'];
             inputs.forEach(id => document.getElementById(id).addEventListener('input', syncForm));
         }
 
@@ -386,6 +391,7 @@
             document.getElementById('out_bs').textContent = document.getElementById('sys_bs').value;
             document.getElementById('out_ad').textContent = document.getElementById('sys_ad').value;
             document.getElementById('out_user').textContent = document.getElementById('sys_user').value;
+            document.getElementById('out_print_time').textContent = document.getElementById('sys_print_time').value;
         }
 
         function addItem() {
