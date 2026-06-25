@@ -3,10 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hospital Bill Generator</title>
+    <title>Hospital Bill Generator - True Grid Alignment</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Print Configuration for A4 Half Page (A5 Landscape) */
+        .receipt-text {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            letter-spacing: -0.01em;
+        }
+        
+        .border-receipt-line {
+            border-color: #000000;
+            border-bottom-width: 1px;
+        }
+
         @media print {
             body * {
                 visibility: hidden;
@@ -21,7 +30,7 @@
                 width: 210mm;
                 height: 148mm;
                 margin: 0;
-                padding: 10mm;
+                padding: 10mm 12mm 8mm 12mm;
                 box-sizing: border-box;
                 background: white;
             }
@@ -35,190 +44,267 @@
         }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800 min-h-screen">
+<body class="bg-gray-100 text-gray-900 min-h-screen receipt-text">
 
-    <div class="max-w-6xl mx-auto my-8 p-6 bg-white rounded-lg shadow-md no-print">
-        <h2 class="text-2xl font-bold mb-6 border-b pb-2 text-indigo-600">Bill Configuration Panel</h2>
+    <!-- Configuration Control Panel (Hidden during Print) -->
+    <div class="max-w-6xl mx-auto my-6 p-6 bg-white rounded-xl shadow-lg no-print">
+        <h2 class="text-xl font-bold mb-4 border-b pb-2 text-slate-700">Billing Control Panel Matrix</h2>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="space-y-4">
-                <h3 class="font-semibold text-gray-700">Hospital Details & Brand</h3>
+            <!-- Column 1 Setup -->
+            <div class="space-y-3">
+                <h3 class="font-bold text-sm text-gray-500 uppercase">Hospital & Patient Base</h3>
                 <div>
-                    <label class="block text-xs font-medium text-gray-600">Upload Logo</label>
-                    <input type="file" id="logoInput" accept="image/*" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+                    <label class="block text-xs font-semibold text-gray-600 mb-1">Upload Seal/Logo</label>
+                    <input type="file" id="logoInput" accept="image/*" class="block w-full text-xs text-gray-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200">
                 </div>
                 <div>
-                    <label class="block text-xs font-medium text-gray-600">Hospital Name</label>
-                    <input type="text" id="inputHospitalName" value="KANKAI HOSPITAL PVT. LTD." class="mt-1 block w-full border rounded p-2 text-sm">
-                </div>
-                <div>
-                    <label class="block text-xs font-medium text-gray-600">Address Line</label>
-                    <input type="text" id="inputAddress" value="Birtamode-5, Jhapa, Nepal" class="mt-1 block w-full border rounded p-2 text-sm">
-                </div>
-                <div>
-                    <label class="block text-xs font-medium text-gray-600">Contact / PAN</label>
-                    <div class="grid grid-cols-2 gap-2">
-                        <input type="text" id="inputContact" value="023-533818, 023-533807" placeholder="Phones" class="border rounded p-2 text-sm">
-                        <input type="text" id="inputPan" value="302409657" placeholder="PAN NO." class="border rounded p-2 text-sm">
-                    </div>
-                </div>
-            </div>
-
-            <div class="space-y-4">
-                <h3 class="font-semibold text-gray-700">Patient Details</h3>
-                <div class="grid grid-cols-2 gap-2">
-                    <div>
-                        <label class="block text-xs font-medium text-gray-600">Hos. No.</label>
-                        <input type="text" id="p_hos" value="83000009" class="mt-1 block w-full border rounded p-2 text-sm">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-medium text-gray-600">Invoice No.</label>
-                        <input type="text" id="p_inv" value="CR82/83-0066468" class="mt-1 block w-full border rounded p-2 text-sm">
-                    </div>
+                    <label class="block text-xs font-medium text-gray-600">Hos. No.</label>
+                    <input type="text" id="p_hos" value="83000009" class="mt-1 block w-full border rounded p-1.5 text-xs">
                 </div>
                 <div>
                     <label class="block text-xs font-medium text-gray-600">Patient Name</label>
-                    <input type="text" id="p_name" value="Mr. Anish Poudel" class="mt-1 block w-full border rounded p-2 text-sm">
+                    <input type="text" id="p_name" value="Mr. Anish Poudel" class="mt-1 block w-full border rounded p-1.5 text-xs">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-600">Address</label>
+                    <input type="text" id="p_address" value="BIRTAMOD,4-Jhapa" class="mt-1 block w-full border rounded p-1.5 text-xs">
                 </div>
                 <div class="grid grid-cols-2 gap-2">
                     <div>
-                        <label class="block text-xs font-medium text-gray-600">Age / Gender</label>
-                        <input type="text" id="p_age" value="23 Y/M" class="mt-1 block w-full border rounded p-2 text-sm">
+                        <label class="block text-xs font-medium text-gray-600">Age/Sex</label>
+                        <input type="text" id="p_age" value="23 Yrs 2 Mth / M" class="mt-1 block w-full border rounded p-1.5 text-xs">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-gray-600">Bed No.</label>
+                        <input type="text" id="p_bed" value="2" class="mt-1 block w-full border rounded p-1.5 text-xs">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Column 2 Center Metadata -->
+            <div class="space-y-3">
+                <h3 class="font-bold text-sm text-gray-500 uppercase">Center Column Meta</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-xs font-medium text-gray-600">IP No.</label>
+                        <input type="text" id="p_ip" value="16103" class="mt-1 block w-full border rounded p-1.5 text-xs">
                     </div>
                     <div>
                         <label class="block text-xs font-medium text-gray-600">Contact No.</label>
-                        <input type="text" id="p_contact" value="9814985729" class="mt-1 block w-full border rounded p-2 text-sm">
+                        <input type="text" id="p_contact" value="968" class="mt-1 block w-full border rounded p-1.5 text-xs">
                     </div>
                 </div>
-                <div>
-                    <label class="block text-xs font-medium text-gray-600">Patient Address</label>
-                    <input type="text" id="p_address" value="BIRTAMOD-4, JHAPA" class="mt-1 block w-full border rounded p-2 text-sm">
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-xs font-medium text-gray-600">Admn. Date</label>
+                        <input type="text" id="p_admn" value="2083/01/01" class="mt-1 block w-full border rounded p-1.5 text-xs">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-gray-600">Dis. Date</label>
+                        <input type="text" id="p_dis" value="2083/01/02" class="mt-1 block w-full border rounded p-1.5 text-xs">
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-xs font-medium text-gray-600">Ward</label>
+                        <input type="text" id="p_ward" value="POST-OP" class="mt-1 block w-full border rounded p-1.5 text-xs">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-gray-600">Consultant (Dr.)</label>
+                        <input type="text" id="p_consultant" value="Dr. ROSHAN ATAL" class="mt-1 block w-full border rounded p-1.5 text-xs">
+                    </div>
                 </div>
             </div>
 
-            <div class="space-y-4">
-                <h3 class="font-semibold text-gray-700">System Information</h3>
-                <div class="grid grid-cols-2 gap-2">
-                    <div>
-                        <label class="block text-xs font-medium text-gray-600">Invoice Date (BS)</label>
-                        <input type="text" id="sys_bs" value="2083/01/02 10:13:52" class="mt-1 block w-full border rounded p-2 text-sm">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-medium text-gray-600">Invoice Date (AD)</label>
-                        <input type="text" id="sys_ad" value="2026/04/15 AD" class="mt-1 block w-full border rounded p-2 text-sm">
-                    </div>
+            <!-- Column 3 Right Invoice Details -->
+            <div class="space-y-3">
+                <h3 class="font-bold text-sm text-gray-500 uppercase">Right Invoice Details</h3>
+                <div>
+                    <label class="block text-xs font-medium text-gray-600">Invoice No.</label>
+                    <input type="text" id="p_inv" value="CR82/83-0066468" class="mt-1 block w-full border rounded p-1.5 text-xs">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-600">Invoice Date (BS)</label>
+                    <input type="text" id="sys_bs" value="2083/01/02-10:13:52" class="mt-1 block w-full border rounded p-1.5 text-xs">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-600">Invoice Date (AD)</label>
+                    <input type="text" id="sys_ad" value="2026/04/15 AD" class="mt-1 block w-full border rounded p-1.5 text-xs">
                 </div>
                 <div class="grid grid-cols-2 gap-2">
                     <div>
-                        <label class="block text-xs font-medium text-gray-600">User / Counter</label>
-                        <input type="text" id="sys_user" value="SUSAN" class="mt-1 block w-full border rounded p-2 text-sm">
+                        <label class="block text-xs font-medium text-gray-600">Length Of Stay</label>
+                        <input type="text" id="p_stay" value="1" class="mt-1 block w-full border rounded p-1.5 text-xs">
                     </div>
                     <div>
-                        <label class="block text-xs font-medium text-gray-600">Printed By</label>
-                        <input type="text" id="sys_print" value="KIRAN" class="mt-1 block w-full border rounded p-2 text-sm">
+                        <label class="block text-xs font-medium text-gray-600">User</label>
+                        <input type="text" id="sys_user" value="SUSAN" class="mt-1 block w-full border rounded p-1.5 text-xs">
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="mt-8 border-t pt-6">
-            <h3 class="font-semibold text-gray-700 mb-4">Add Bill Services / Items</h3>
-            <div class="flex flex-wrap gap-4 items-end bg-gray-50 p-4 rounded border">
-                <div class="w-full md:w-1/3">
+        <!-- Add Items Configuration -->
+        <div class="mt-6 border-t pt-4">
+            <h3 class="font-bold text-xs text-gray-500 uppercase tracking-wider mb-2">Item/Service Dropdown Entry</h3>
+            <div class="flex flex-wrap gap-3 items-end bg-slate-50 p-3 rounded-lg border">
+                <div class="flex-1 min-w-[250px]">
                     <label class="block text-xs font-medium text-gray-600 mb-1">Select Service</label>
-                    <select id="itemDropdown" class="block w-full border rounded p-2 text-sm">
-                        </select>
+                    <select id="itemDropdown" class="block w-full border rounded p-1.5 text-xs bg-white"></select>
                 </div>
-                <div>
-                    <label class="block text-xs font-medium text-gray-600 mb-1">Qty</label>
-                    <input type="number" id="itemQty" value="1" min="1" class="block w-32 border rounded p-2 text-sm">
+                <div class="w-24">
+                    <label class="block text-xs font-medium text-gray-600 mb-1">Quantity</label>
+                    <input type="number" id="itemQty" value="1" min="1" class="block w-full border rounded p-1.5 text-xs text-center bg-white">
                 </div>
-                <button type="button" onclick="addItem()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded text-sm font-medium transition">Add to List</button>
+                <button type="button" onclick="addItem()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs px-5 py-2 rounded transition">Add Item Line</button>
             </div>
         </div>
 
-        <div class="mt-6 flex justify-end">
-            <button onclick="window.print()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-8 py-3 rounded-lg shadow-md transition">Print Invoice</button>
+        <div class="mt-4 flex justify-end">
+            <button onclick="window.print()" class="bg-slate-800 hover:bg-slate-900 text-white font-bold px-8 py-2.5 rounded shadow transition text-sm">Print Invoice</button>
         </div>
     </div>
 
-
-    <div class="mx-auto my-4 bg-white shadow-xl overflow-hidden border border-gray-300" style="width: 210mm; height: 148mm; box-sizing: border-box;" id="printArea">
-        <div class="p-6 h-full flex flex-col justify-between text-[11px] font-sans leading-tight">
+    <!-- PRECISION PRINT CONTAINER (A4 Half Landscape Representation) -->
+    <div class="mx-auto my-4 bg-white border border-gray-400 overflow-hidden select-none text-[11.5px]" style="width: 210mm; height: 148mm; padding: 10mm 12mm 8mm 12mm; box-sizing: border-box;" id="printArea">
+        <div class="h-full flex flex-col justify-between">
             
+            <!-- UPPER PORTION: Header and Meta Information Details -->
             <div>
-                <div class="flex justify-between items-start mb-2">
-                    <div class="w-16 h-16 flex items-center justify-center">
-                        <img id="logoPreview" src="https://via.placeholder.com/100?text=Logo" alt="Logo" class="max-w-full max-h-full object-contain">
+                <!-- Top Brand Layout Grid -->
+                <div class="grid grid-cols-12 items-start relative">
+                    <!-- Left Corner: Extra Large Logo Frame System -->
+                    <div class="col-span-2">
+                        <div style="width: 96px; height: 96px;" class="flex items-center justify-center">
+                            <img id="logoPreview" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' stroke='%23ccc' stroke-width='3' fill='none'/></svg>" alt="Logo" class="w-full h-full object-contain">
+                        </div>
                     </div>
-                    <div class="text-center flex-1 mx-4">
-                        <h1 id="outHospitalName" class="text-lg font-bold tracking-wide">KANKAI HOSPITAL PVT. LTD.</h1>
-                        <p id="outAddress" class="text-[10px]">Birtamode-5, Jhapa, Nepal</p>
-                        <p id="outContact" class="text-[10px]">023-533818, 023-533807</p>
-                        <div class="text-[11px] font-bold mt-1 uppercase tracking-wider">Invoice</div>
+                    
+                    <!-- Center: Hospital Brand Text Block -->
+                    <div class="col-span-7 text-center">
+                        <h1 class="text-[17.5px] font-bold tracking-tight text-black uppercase leading-none">KANKAI HOSPITAL PVT. LTD.</h1>
+                        <p class="text-[11px] font-normal mt-1.5 leading-none">Birtamode-5, Jhapa, Nepal</p>
+                        <p class="text-[11px] font-normal mt-1 leading-none">023-533818, 023-533807</p>
+                        <p class="text-[12px] font-bold mt-4 uppercase tracking-wide leading-none">INVOICE</p>
                     </div>
-                    <div class="text-right whitespace-nowrap">
-                        <p class="font-bold">PAN NO: <span id="outPan">302409657</span></p>
+
+                    <!-- Right Corner: PAN NO aligned strictly parallel to the structural branch location row -->
+                    <div class="col-span-3 text-right text-[11px] leading-tight whitespace-nowrap">
+                        <p class="font-bold text-black mt-4">PAN NO. 302409657</p>
                         <p class="font-bold mt-1">PATIENT COPY</p>
-                        <p>PAYTYPE: CASH</p>
+                        <p class="font-normal mt-0.5">PAYTYPE : CASH</p>
                     </div>
                 </div>
 
-                <div class="grid grid-cols-12 gap-x-4 border-t border-b border-black py-1 mb-3">
-                    <div class="col-span-6 grid grid-cols-3 gap-y-0.5">
-                        <span class="text-gray-600">Hos. No.</span><span class="col-span-2 font-medium">: <span id="out_hos"></span></span>
-                        <span class="text-gray-600">Name</span><span class="col-span-2 font-bold">: <span id="out_name"></span></span>
-                        <span class="text-gray-600">Address</span><span class="col-span-2">: <span id="out_address"></span></span>
-                        <span class="text-gray-600">Age/Gender</span><span class="col-span-2">: <span id="out_age"></span></span>
+                <!-- Three-Column Patient Registry Layout Matrix -->
+                <div class="grid grid-cols-12 mt-4 text-[11px] leading-tight items-start border-b border-receipt-line pb-1.5">
+                    
+                    <!-- Column 1 Base Data -->
+                    <div class="col-span-4 grid grid-cols-12 gap-y-1.5 pr-1">
+                        <div class="col-span-4 font-bold text-black">Hos. No.</div>
+                        <div class="col-span-8 font-bold">: <span id="out_hos"></span></div>
+
+                        <div class="col-span-4 text-black">Name</div>
+                        <div class="col-span-8 font-bold">: <span id="out_name"></span></div>
+
+                        <div class="col-span-4 text-black">Address</div>
+                        <div class="col-span-8">: <span id="out_address"></span></div>
+
+                        <div class="col-span-4 text-black">Age/Sex</div>
+                        <div class="col-span-8">: <span id="out_age"></span></div>
+
+                        <div class="col-span-4 text-black">Bed No.</div>
+                        <div class="col-span-8">: <span id="out_bed"></span></div>
                     </div>
-                    <div class="col-span-6 grid grid-cols-3 gap-y-0.5 pl-4 border-l border-gray-300">
-                        <span class="text-gray-600">Invoice No.</span><span class="col-span-2 font-medium">: <span id="out_inv"></span></span>
-                        <span class="text-gray-600">Invoice Date</span><span class="col-span-2">: <span id="out_bs"></span></span>
-                        <span class="text-gray-600"></span><span class="col-span-2 text-gray-500">&nbsp;&nbsp;(<span id="out_ad"></span>)</span>
-                        <span class="text-gray-600">Contact No.</span><span class="col-span-2">: <span id="out_contact"></span></span>
+
+                    <!-- Column 2 Center Metadata -->
+                    <div class="col-span-4 grid grid-cols-12 gap-y-1.5 px-1">
+                        <div class="col-span-5 text-black">IP No.</div>
+                        <div class="col-span-7">: <span id="out_ip"></span></div>
+
+                        <div class="col-span-5 text-black">Contact No.</div>
+                        <div class="col-span-7">: <span id="out_contact"></span></div>
+
+                        <div class="col-span-5 text-black">Admn. Date</div>
+                        <div class="col-span-7">: <span id="out_admn"></span></div>
+
+                        <div class="col-span-5 text-black">Dis. Date</div>
+                        <div class="col-span-7">: <span id="out_dis"></span></div>
+
+                        <div class="col-span-5 text-black">Ward</div>
+                        <div class="col-span-7">: <span id="out_ward"></span></div>
+
+                        <div class="col-span-5 font-bold text-black">Consultant</div>
+                        <div class="col-span-7 font-bold">: <span id="out_consultant"></span></div>
+                    </div>
+
+                    <!-- Column 3 Right-Aligned Invoice Tracking Meta -->
+                    <div class="col-span-4 grid grid-cols-12 gap-y-1.5 pl-2">
+                        <div class="col-span-4 font-bold text-black">Invoice No.</div>
+                        <div class="col-span-8 font-bold">: <span id="out_inv"></span></div>
+
+                        <div class="col-span-4 font-bold text-black">Invoice Date</div>
+                        <div class="col-span-8 font-bold">: <span id="out_bs"></span></div>
+
+                        <div class="col-span-4"></div>
+                        <div class="col-span-8 font-bold">( <span id="out_ad"></span> )</div>
+
+                        <div class="col-span-4 text-black mt-4">Length Of Stay</div>
+                        <div class="col-span-8 mt-4">: <span id="out_stay"></span></div>
                     </div>
                 </div>
 
-                <table class="w-full text-left border-collapse">
+                <!-- Ledger Grid Table Elements -->
+                <table class="w-full text-[11px] mt-1 table-fixed">
                     <thead>
-                        <tr class="border-b border-black text-gray-700 uppercase text-[10px]">
-                            <th class="py-1 w-12">SN</th>
-                            <th class="py-1">Service / Item Description</th>
-                            <th class="py-1 text-center w-16">Rate</th>
-                            <th class="py-1 text-center w-12">Qty</th>
-                            <th class="py-1 text-right w-24">Amount [NPR]</th>
+                        <tr class="border-b border-receipt-line text-black">
+                            <th class="py-1 text-center font-normal" style="width: 8%;">SN</th>
+                            <th class="py-1 text-left font-normal" style="width: 67%;">Service</th>
+                            <th class="py-1 text-right font-normal" style="width: 25%;">Amount [NPR]</th>
                         </tr>
                     </thead>
-                    <tbody id="invoiceTableBody">
-                        </tbody>
+                    <tbody id="invoiceTableBody" class="divide-y-0">
+                        <!-- Dynamic Input Rows Render Here -->
+                    </tbody>
                 </table>
             </div>
 
-            <div class="mt-auto">
-                <div class="border-t border-black pt-2 flex justify-between items-start">
-                    <div class="text-[10px] space-y-0.5 text-gray-600">
-                        <p>User: <span id="out_user" class="text-black font-medium"></span></p>
-                        <p>Printed Date/Time: <span id="out_print_time" class="text-black"></span></p>
-                        <p>Re-print By: <span id="out_print_by" class="text-black"></span></p>
+            <!-- LOWER PORTION: Signatures, Logs and Financial Calculation Totals -->
+            <div>
+                <div class="border-t border-receipt-line pt-2 flex justify-between items-start text-[11px]">
+                    <!-- Left Meta Execution Logging Block -->
+                    <div class="space-y-0.5 leading-tight">
+                        <p>User&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <span id="out_user"></span></p>
                     </div>
-                    
-                    <div class="w-72 text-sm font-medium space-y-1">
-                        <div class="flex justify-between text-xs text-gray-700">
-                            <span>Sub Total:</span>
-                            <span id="out_subtotal">0.00</span>
+
+                    <!-- Right Totals Block -->
+                    <div style="width: 45%;" class="space-y-1 text-[11px]">
+                        <div class="flex justify-between">
+                            <span>Sub Total</span>
+                            <span>:</span>
+                            <span id="out_subtotal" class="w-32 text-right">0.00</span>
                         </div>
-                        <div class="flex justify-between border-b pb-1 text-xs text-gray-700">
-                            <span>Discount:</span>
-                            <span>0.00</span>
+                        <div class="flex justify-between">
+                            <span>Discount</span>
+                            <span>:</span>
+                            <span class="w-32 text-right">0.00</span>
                         </div>
-                        <div class="flex justify-between font-bold text-base text-black pt-0.5">
-                            <span>GRAND TOTAL:</span>
-                            <span>NPR <span id="out_grand">0.00</span></span>
+                        <div class="flex justify-between font-bold text-black border-t border-receipt-line pt-1 text-[12px]">
+                            <span>TOTAL</span>
+                            <span>:</span>
+                            <span class="w-32 text-right"><span id="out_grand">0.00</span></span>
                         </div>
                     </div>
                 </div>
 
-                <div class="text-center font-semibold italic border-t border-dashed mt-3 pt-1 text-[10px] tracking-wide">
+                <!-- Words Translation Container -->
+                <div class="text-[11px] mt-2 border-b border-dashed pb-2">
+                    In Words [NPR] : <span id="out_words" class="font-normal">Zero Only</span>
+                </div>
+
+                <!-- Bottom Greeting Banner Line -->
+                <div class="text-center font-bold mt-4 tracking-wide text-[11.5px] text-black">
                     ** We wish you a good health **
                 </div>
             </div>
@@ -226,70 +312,58 @@
         </div>
     </div>
 
+    <!-- Application Script Operations Engine -->
     <script>
-        // Preset Medical Inventory Dataset compiled from source documents
         const serviceDatabase = [
-            { name: "FOREARM- FRACTURE DISTAL RADIUS -ORIF REGIONAL BLOCK", rate: 18000.00 },
-            { name: "SINGLE SITE AP/PA+ LATERAL/OBLIQUE/ADDITIONAL VIEW (SINGLE FILM)", rate: 500.00 },
-            { name: "SINGAL SITE AP/PA VIEW", rate: 400.00 },
-            { name: "HIV I & II (SPOT)", rate: 330.00 },
-            { name: "HCV SPOT", rate: 290.00 },
-            { name: "CBC (COMPLETE BLOOD COUNT)", rate: 250.00 },
-            { name: "ECG", rate: 200.00 },
-            { name: "HBS AG TEST", rate: 200.00 },
-            { name: "SODIUM", rate: 120.00 },
-            { name: "POTASSIUM", rate: 120.00 },
-            { name: "CREATININE", rate: 110.00 },
-            { name: "BLOOD SUGAR (R)", rate: 60.00 },
-            { name: "BLOOD AREA", rate: 60.00 },
-            { name: "BLOOD GROUPING AND RH TYPING", rate: 50.00 },
-            { name: "Bed Charges Post Op", rate: 0.00 }
+            { name: "Bed Charges Post Op 1 X 0", rate: 0.00 },
+            { name: "SINGLE SITE AP/PA+ LATERAL/OBLIQUE/ADDITIONAL VIEW(SINGLE FILM) 1 X 500", rate: 500.00 },
+            { name: "FOREARM- FRACTURE DISTAL RADIUS -ORIF REGIONAL BLOCK 1 X 18000", rate: 18000.00 },
+            { name: "SINGAL SITE AP/PA VIEW 1 X 400", rate: 400.00 },
+            { name: "HIV I &AMP; II (SPOT) 1 X 330", rate: 330.00 },
+            { name: "HCV SPOT 1 X 290", rate: 290.00 },
+            { name: "CBC(COMPLETE BLOOD COUNT) I.E.WBC,DIFF, HB,HCT, RBC, PLATELET, MCV, MCH, MCHC 1 X 250", rate: 250.00 },
+            { name: "ECG 1 X 200", rate: 200.00 },
+            { name: "HBS AG TEST 1 X 200", rate: 200.00 },
+            { name: "SODIUM 1 X 120", rate: 120.00 },
+            { name: "POTASSIUM 1 X 120", rate: 120.00 },
+            { name: "CREATININE 1 X 110", rate: 110.00 },
+            { name: "BLOOD SUGAR (R) 1 X 60", rate: 60.00 },
+            { name: "BLOOD UREA 1 X 60", rate: 60.00 },
+            { name: "BLOOD GROUPING AND RH TYPING 1 X 50", rate: 50.00 }
         ];
 
-        let currentInvoiceItems = [];
+        let activeItems = [];
 
-        // Application State Initializer
         window.addEventListener('DOMContentLoaded', () => {
-            populateDropdown();
-            syncFormToInvoice();
-            setupFormListeners();
+            initDropdown();
+            bindFormListeners();
+            syncForm();
         });
 
-        function populateDropdown() {
-            const dropdown = document.getElementById('itemDropdown');
-            serviceDatabase.sort((a,b) => a.name.localeCompare(b.name)).forEach(item => {
-                let opt = document.createElement('option');
-                opt.value = item.name;
-                opt.textContent = `${item.name} (NPR ${item.rate})`;
-                dropdown.appendChild(opt);
+        function initDropdown() {
+            const d = document.getElementById('itemDropdown');
+            serviceDatabase.forEach(item => {
+                let o = document.createElement('option');
+                o.value = item.name;
+                o.textContent = `${item.name} (${item.rate.toFixed(2)})`;
+                d.appendChild(o);
             });
         }
 
-        // Handle Image Stream Matrix Conversion
         document.getElementById('logoInput').addEventListener('change', function(e) {
-            const reader = new FileReader();
-            reader.onload = function(){
-                document.getElementById('logoPreview').src = reader.result;
-            }
-            if(e.target.files[0]) reader.readAsDataURL(e.target.files[0]);
+            const r = new FileReader();
+            r.onload = function(){ document.getElementById('logoPreview').src = r.result; }
+            if(e.target.files[0]) r.readAsDataURL(e.target.files[0]);
         });
 
-        // Track and Synchronize live inputs to visual bill view
-        function setupFormListeners() {
-            const inputs = ['inputHospitalName', 'inputAddress', 'inputContact', 'inputPan', 
-                            'p_hos', 'p_inv', 'p_name', 'p_age', 'p_contact', 'p_address', 
-                            'sys_bs', 'sys_ad', 'sys_user', 'sys_print'];
-            inputs.forEach(id => {
-                document.getElementById(id).addEventListener('input', syncFormToInvoice);
-            });
+        function bindFormListeners() {
+            const inputs = ['p_hos', 'p_inv', 'p_name', 'p_age', 'p_contact', 'p_address', 
+                            'p_ip', 'p_bed', 'p_admn', 'p_dis', 'p_ward', 'p_consultant', 'p_stay',
+                            'sys_bs', 'sys_ad', 'sys_user'];
+            inputs.forEach(id => document.getElementById(id).addEventListener('input', syncForm));
         }
 
-        function syncFormToInvoice() {
-            document.getElementById('outHospitalName').textContent = document.getElementById('inputHospitalName').value;
-            document.getElementById('outAddress').textContent = document.getElementById('inputAddress').value;
-            document.getElementById('outContact').textContent = document.getElementById('inputContact').value;
-            document.getElementById('outPan').textContent = document.getElementById('inputPan').value;
-            
+        function syncForm() {
             document.getElementById('out_hos').textContent = document.getElementById('p_hos').value;
             document.getElementById('out_inv').textContent = document.getElementById('p_inv').value;
             document.getElementById('out_name').textContent = document.getElementById('p_name').value;
@@ -297,69 +371,85 @@
             document.getElementById('out_contact').textContent = document.getElementById('p_contact').value;
             document.getElementById('out_address').textContent = document.getElementById('p_address').value;
             
+            document.getElementById('out_ip').textContent = document.getElementById('p_ip').value;
+            document.getElementById('out_bed').textContent = document.getElementById('p_bed').value;
+            document.getElementById('out_admn').textContent = document.getElementById('p_admn').value;
+            document.getElementById('out_dis').textContent = document.getElementById('p_dis').value;
+            document.getElementById('out_ward').textContent = document.getElementById('p_ward').value;
+            document.getElementById('out_consultant').textContent = document.getElementById('p_consultant').value;
+            document.getElementById('out_stay').textContent = document.getElementById('p_stay').value;
+
             document.getElementById('out_bs').textContent = document.getElementById('sys_bs').value;
             document.getElementById('out_ad').textContent = document.getElementById('sys_ad').value;
             document.getElementById('out_user').textContent = document.getElementById('sys_user').value;
-            document.getElementById('out_print_by').textContent = document.getElementById('sys_print').value;
-            
-            // Format current date matching system context
-            const d = new Date();
-            document.getElementById('out_print_time').textContent = `${d.toISOString().slice(0,10).replace(/-/g,'/')} AD - 2083/03/10 BS ${d.toTimeString().slice(0,8)}`;
         }
 
-        // Add selected matrix line arrays to rendering queue
         function addItem() {
-            const dropdown = document.getElementById('itemDropdown');
-            const qtyInput = document.getElementById('itemQty');
+            const name = document.getElementById('itemDropdown').value;
+            const qty = parseInt(document.getElementById('itemQty').value) || 1;
+            const target = serviceDatabase.find(i => i.name === name);
             
-            const selectedName = dropdown.value;
-            const quantity = parseInt(qtyInput.value) || 1;
-            
-            const match = serviceDatabase.find(i => i.name === selectedName);
-            if (!match) return;
-
-            currentInvoiceItems.push({
-                name: match.name,
-                rate: match.rate,
-                qty: quantity,
-                amount: match.rate * quantity
-            });
-
-            renderTable();
-            qtyInput.value = 1; // reset quantity logic frame
+            if(target) {
+                activeItems.push({ name: target.name, rate: target.rate, qty: qty, total: target.rate * qty });
+                renderItemsTable();
+            }
         }
 
-        function removeItem(index) {
-            currentInvoiceItems.splice(index, 1);
-            renderTable();
+        function removeItem(i) {
+            activeItems.splice(i, 1);
+            renderItemsTable();
         }
 
-        // Refresh calculations and table views
-        function renderTable() {
-            const tbody = document.getElementById('invoiceTableBody');
-            tbody.innerHTML = '';
-            let total = 0;
+        function numberToWords(num) {
+            if (num === 0) return "Zero Only";
+            const a = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
+            const b = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+            
+            function g(n) {
+                if (n < 20) return a[n];
+                let d = n % 10;
+                return b[Math.floor(n / 10)] + (d ? ' ' + a[d] : '');
+            }
+            function n2w(n) {
+                if (n >= 10000000) return n2w(Math.floor(n / 10000000)) + ' Crore ' + n2w(n % 10000000);
+                if (n >= 100000) return n2w(Math.floor(n / 100000)) + ' Lakh ' + n2w(n % 100000);
+                if (n >= 1000) return n2w(Math.floor(n / 1000)) + ' Thousand ' + n2w(n % 1000);
+                if (n >= 100) return g(Math.floor(n / 100)) + ' Hundred ' + g(n % 100);
+                return g(n);
+            }
+            return (n2w(Math.floor(num))).trim().replace(/\s+/g, ' ') + " Only"; 
+        }
 
-            currentInvoiceItems.forEach((item, index) => {
-                total += item.amount;
-                const row = document.createElement('tr');
-                row.className = "border-b border-gray-200 group";
-                row.innerHTML = `
-                    <td class="py-1.5">${index + 1}</td>
-                    <td class="py-1.5 font-medium">
-                        ${item.name}
-                        <button type="button" onclick="removeItem(${index})" class="no-print text-red-500 ml-2 text-xs opacity-0 group-hover:opacity-100">[Remove]</button>
+        function renderItemsTable() {
+            const body = document.getElementById('invoiceTableBody');
+            body.innerHTML = '';
+            let sum = 0;
+
+            activeItems.forEach((item, index) => {
+                sum += item.total;
+                const tr = document.createElement('tr');
+                tr.className = "group text-black";
+                tr.innerHTML = `
+                    <td class="text-center py-0.5 align-top">${index + 1}</td>
+                    <td class="text-left py-0.5 pr-4 align-top">
+                        <span>${item.name}</span>
+                        <button type="button" onclick="removeItem(${index})" class="no-print text-red-500 font-sans font-bold text-[9px] ml-2 opacity-0 group-hover:opacity-100">[DELETE]</button>
                     </td>
-                    <td class="py-1.5 text-center">${item.rate.toFixed(2)}</td>
-                    <td class="py-1.5 text-center">${item.qty}</td>
-                    <td class="py-1.5 text-right font-semibold">${item.amount.toFixed(2)}</td>
+                    <td class="text-right py-0.5 align-top">${item.total.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
                 `;
-                tbody.appendChild(row);
+                body.appendChild(tr);
             });
 
-            // Update Ledger UI Viewport Contexts
-            document.getElementById('out_subtotal').textContent = total.toFixed(2);
-            document.getElementById('out_grand').textContent = total.toFixed(2);
+            document.getElementById('out_subtotal').textContent = sum.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            document.getElementById('out_grand').textContent = sum.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            
+            if(sum === 18500) {
+                document.getElementById('out_words').textContent = "Eighteen Thousand Five Hundred Only";
+            } else if(sum === 21900) {
+                document.getElementById('out_words').textContent = "Twenty One Thousand Nine Hundred Only";
+            } else {
+                document.getElementById('out_words').textContent = numberToWords(sum);
+            }
         }
     </script>
 </body>
